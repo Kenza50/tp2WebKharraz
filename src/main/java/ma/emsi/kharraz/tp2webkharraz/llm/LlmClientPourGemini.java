@@ -1,5 +1,6 @@
 package ma.emsi.kharraz.tp2webkharraz.llm;
 
+import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -25,6 +26,12 @@ public class LlmClientPourGemini {
                 .chatLanguageModel(model)
                 .chatMemory(chatMemory)
                 .build();
+    }
+
+    public void setSystemRole(String systemRole) {
+        this.systemRole = systemRole;
+        this.chatMemory.clear();
+        this.chatMemory.add(SystemMessage.from(systemRole));
     }
 
     public String generate(String userMessage) {
