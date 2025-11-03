@@ -6,6 +6,7 @@ import jakarta.faces.model.SelectItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import ma.emsi.kharraz.tp2webkharraz.llm.LlmClientPourGemini;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class Bb implements Serializable {
     private StringBuilder conversation = new StringBuilder();
 
     @Inject
-    private LlmClient llmClient;
+    private LlmClientPourGemini llmClient;
 
     /**
      * Contexte JSF. Utilisé pour qu'un message d'erreur s'affiche dans le formulaire.
@@ -132,7 +133,7 @@ public class Bb implements Serializable {
             this.roleSystemeChangeable = false;
         }
 
-        this.reponse = llmClient.chat(prompt);
+        this.reponse = llmClient.generate(prompt);
         // La conversation contient l'historique des questions-réponses depuis le début.
         afficherConversation();
         return null;
